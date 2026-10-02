@@ -1,3 +1,8 @@
+Nombre:Emiliano Rodriguez Medina 
+Grupo:IEVN1003
+Tel: 477 786 7679
+correo: rodriguezmedinaemiliano982@gmail.com
+
 # SegundoParcialAngular
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
