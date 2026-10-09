@@ -79,5 +79,3 @@ export class Zodiaco {
     this.mostrarResultado = true;
   }
 }
-
-

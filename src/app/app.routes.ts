@@ -1,4 +1,3 @@
-
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -12,7 +11,6 @@ export const routes: Routes = [
             (c) => c.Distancia
           ),
       },
-
       {
         path: 'zodiaco',
         loadComponent: () =>
@@ -22,12 +20,11 @@ export const routes: Routes = [
       },
     ],
   },
-
   {
     path: 'escuela',
     children: [
       {
-        path: 'alumno',
+        path: 'lista-escuela',
         loadComponent: () =>
           import('./escuela/lista-escuela/lista-escuela').then(
             (c) => c.ListaEscuela
@@ -35,15 +32,6 @@ export const routes: Routes = [
       },
     ],
   },
-
-  {
-    path: '',
-    redirectTo: 'admin',
-    pathMatch: 'full'
-  },
-
-  {
-    path: '**',
-    redirectTo: 'admin'
-  },
+  { path: '', redirectTo: 'admin', pathMatch: 'full' },
+  { path: '**', redirectTo: 'admin' },
 ];
