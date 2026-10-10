@@ -1,3 +1,4 @@
+
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
@@ -30,8 +31,15 @@ export const routes: Routes = [
             (c) => c.ListaEscuela
           ),
       },
+      {
+        path: 'cinepolis',
+        loadComponent: () =>
+          import('./escuela/cinepolis/cinepolis').then(
+            (c) => c.Cinepolis
+          ),
+      },
     ],
   },
-  { path: '', redirectTo: 'admin', pathMatch: 'full' },
-  { path: '**', redirectTo: 'admin' },
+  { path: '', redirectTo: 'escuela/cinepolis', pathMatch: 'full' },
+  { path: '**', redirectTo: 'escuela/cinepolis' },
 ];
