@@ -3,5 +3,4 @@ export interface IAlumno {
     nombre: string,
     correo: string,
     materia: string
-
 }

@@ -1,46 +1,59 @@
 
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { Venta } from '../venta';
 
 @Component({
   selector: 'app-cinepolis',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './cinepolis.html',
-  styleUrl: './cinepolis.css'
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterModule
+  ],
+  templateUrl: './cinepolis.html'
 })
 export class Cinepolis {
+
   formulario = new FormGroup({
     nombre: new FormControl(''),
     cantidadPersonas: new FormControl(),
     boletos: new FormControl(),
-    tarjeta: new FormControl('')
+    tarjeta: new FormControl('n')
   });
 
-  total: number = 0;
   mensaje: string = '';
   descuento: number = 0;
+  total: number = 0;
+  ventas: Venta[] = [];
+
+  constructor() {
+    this.cargarVentas();
+  }
 
   calcular(): void {
     const nombre = this.formulario.value.nombre || '';
     const cantidadPersonas = Number(this.formulario.value.cantidadPersonas);
     const boletos = Number(this.formulario.value.boletos);
-    const tarjeta = this.formulario.value.tarjeta;
+    const tarjeta = this.formulario.value.tarjeta || 'no';
 
     if (
       nombre.trim() === '' ||
       cantidadPersonas < 1 ||
-      boletos < 1
+      boletos < 1 ||
+      !Number.isInteger(cantidadPersonas) ||
+      !Number.isInteger(boletos)
     ) {
-      this.mensaje = 'Completa todos los campos correctamente';
+      this.mensaje = 'Completa todos los campos correctamente.';
       this.total = 0;
       this.descuento = 0;
       return;
     }
 
     if (boletos > cantidadPersonas * 7) {
-      this.mensaje = 'No puedes comprar más de 7 boletos por persona';
+      this.mensaje = 'No puedes comprar más de 7 boletos por persona.';
       this.total = 0;
       this.descuento = 0;
       return;
@@ -50,18 +63,47 @@ export class Cinepolis {
     let precio = precioBase;
 
     if (boletos > 5) {
-      precio *= 0.85;
+      precio = precio * 0.85;
     } else if (boletos >= 3) {
-      precio *= 0.90;
+      precio = precio * 0.90;
     }
 
     if (tarjeta === 'si') {
-      precio *= 0.90;
+      precio = precio * 0.90;
     }
 
     this.total = precio;
-    this.descuento = precioBase - this.total;
-    this.mensaje = `El cliente ${nombre} debe pagar: $${this.total.toFixed(2)}`;
+    this.descuento = precioBase - precio;
+
+    const nuevaVenta: Venta = {
+      nombre: nombre,
+      cantidadPersonas: cantidadPersonas,
+      boletos: boletos,
+      tarjeta: tarjeta,
+      descuento: this.descuento,
+      total: this.total
+    };
+
+    this.ventas.push(nuevaVenta);
+
+    localStorage.setItem(
+      'ventas',
+      JSON.stringify(this.ventas)
+    );
+
+    this.mensaje =
+      'Venta registrada correctamente. Total a pagar: $' +
+      this.total.toFixed(2);
+  }
+
+  cargarVentas(): void {
+    const datos = localStorage.getItem('ventas');
+
+    if (datos) {
+      this.ventas = JSON.parse(datos);
+    } else {
+      this.ventas = [];
+    }
   }
 
   salir(): void {
@@ -72,8 +114,9 @@ export class Cinepolis {
       tarjeta: 'no'
     });
 
+    this.mensaje = '';
     this.total = 0;
     this.descuento = 0;
-    this.mensaje = '';
   }
+
 }

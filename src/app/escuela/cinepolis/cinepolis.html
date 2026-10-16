@@ -1,20 +1,24 @@
 
-<div class="max-w-2xl mx-auto mt-10 p-6 bg-white border border-gray-200 rounded-lg shadow-sm">
+<div class="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow">
 
-  <h3 class="text-2xl font-bold text-center text-gray-900 mb-6">
+  <h1 class="text-3xl font-bold text-gray-900 mb-6">
     Cinépolis
-  </h3>
+  </h1>
 
   <form [formGroup]="formulario">
+
     <div class="mb-5">
       <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">
         Nombre del comprador
       </label>
+
       <input
-        id="nombre"
         type="text"
+        id="nombre"
         formControlName="nombre"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+        required
+        placeholder="Nombre del comprador"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       >
     </div>
 
@@ -22,12 +26,14 @@
       <label for="cantidadPersonas" class="block mb-2 text-sm font-medium text-gray-900">
         Cantidad de compradores
       </label>
+
       <input
-        id="cantidadPersonas"
         type="number"
+        id="cantidadPersonas"
         formControlName="cantidadPersonas"
         min="1"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+        required
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       >
     </div>
 
@@ -35,12 +41,14 @@
       <label for="boletos" class="block mb-2 text-sm font-medium text-gray-900">
         Cantidad de boletos
       </label>
+
       <input
-        id="boletos"
         type="number"
+        id="boletos"
         formControlName="boletos"
         min="1"
-        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
+        required
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
       >
     </div>
 
@@ -49,83 +57,145 @@
         ¿Cuenta con tarjeta Cinépolis?
       </span>
 
-      <div class="flex items-center mb-2">
-        <input
-          id="tarjetaSi"
-          type="radio"
-          formControlName="tarjeta"
-          value="si"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-        >
-        <label for="tarjetaSi" class="ms-2 text-sm font-medium text-gray-900">
-          Sí
-        </label>
-      </div>
+      <div class="flex items-center gap-6">
 
-      <div class="flex items-center">
-        <input
-          id="tarjetaNo"
-          type="radio"
-          formControlName="tarjeta"
-          value="no"
-          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300"
-        >
-        <label for="tarjetaNo" class="ms-2 text-sm font-medium text-gray-900">
-          No
-        </label>
+        <div class="flex items-center">
+          <input
+            id="tarjeta-si"
+            type="radio"
+            formControlName="tarjeta"
+            value="si"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+          >
+
+          <label for="tarjeta-si" class="ms-2 text-sm font-medium text-gray-900">
+            Sí
+          </label>
+        </div>
+
+        <div class="flex items-center">
+          <input
+            id="tarjeta-no"
+            type="radio"
+            formControlName="tarjeta"
+            value="no"
+            class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500"
+          >
+
+          <label for="tarjeta-no" class="ms-2 text-sm font-medium text-gray-900">
+            No
+          </label>
+        </div>
+
       </div>
     </div>
+
+    <h2 class="mb-3 text-xl font-bold text-gray-900">
+      Acciones
+    </h2>
+
+    <div class="flex justify-end gap-2 mt-5">
+      <button
+        type="button"
+        (click)="calcular()"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+      >
+        Procesar
+      </button>
+
+      <button
+        type="button"
+        (click)="salir()"
+        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+      >
+        Salir
+      </button>
+    </div>
+
+    <h2 class="mt-6 mb-3 text-xl font-bold text-gray-900">
+      Salidas
+    </h2>
+
+    <div class="mb-4">
+      <label class="block mb-2 text-sm font-medium text-gray-900">
+        Mensaje
+      </label>
+
+      <p class="text-sm text-gray-700">
+        {{ mensaje }}
+      </p>
+    </div>
+
+    <div class="mb-5">
+      <label class="block mb-2 text-sm font-medium text-gray-900">
+        Descuento aplicado
+      </label>
+
+      <p class="text-sm text-gray-700">
+        {{ descuento | currency:'MXN' }}
+      </p>
+    </div>
+
   </form>
 
-  <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-3">
-    Acciones
-  </h4>
+</div>
 
-  <div class="flex gap-3">
-    <button
-      type="button"
-      (click)="calcular()"
-      class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5"
-    >
-      Procesar
-    </button>
+<div class="max-w-6xl mx-auto mt-8 p-6">
 
-    <button
-      type="button"
-      (click)="salir()"
-      class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5"
-    >
-      Salir
-    </button>
+  <h2 class="mb-4 text-2xl font-bold text-gray-900">
+    Ventas registradas
+  </h2>
+
+  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+
+    <table class="w-full text-sm text-left text-gray-500">
+
+      <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+        <tr>
+          <th scope="col" class="px-6 py-3">Comprador</th>
+          <th scope="col" class="px-6 py-3">Personas</th>
+          <th scope="col" class="px-6 py-3">Boletos</th>
+          <th scope="col" class="px-6 py-3">Tarjeta</th>
+          <th scope="col" class="px-6 py-3">Descuento</th>
+          <th scope="col" class="px-6 py-3">Total</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr
+          *ngFor="let venta of ventas"
+          class="bg-white border-b border-gray-200 hover:bg-gray-50"
+        >
+          <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+            {{ venta.nombre }}
+          </td>
+
+          <td class="px-6 py-4">{{ venta.cantidadPersonas }}</td>
+          <td class="px-6 py-4">{{ venta.boletos }}</td>
+          <td class="px-6 py-4">{{ venta.tarjeta === 'si' ? 'Sí' : 'No' }}</td>
+          <td class="px-6 py-4">{{ venta.descuento | currency:'MXN' }}</td>
+          <td class="px-6 py-4">{{ venta.total | currency:'MXN' }}</td>
+        </tr>
+      </tbody>
+
+    </table>
+
   </div>
 
-  <h4 class="text-lg font-semibold text-gray-900 mt-6 mb-3">
-    Salidas
-  </h4>
-
-  <div *ngIf="mensaje" class="mb-4">
-    <label for="mensaje" class="block mb-2 text-sm font-medium text-gray-900">
-      Mensaje
-    </label>
-    <textarea
-      id="mensaje"
-      [value]="mensaje"
-      readonly
-      rows="2"
-      class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300"
-    ></textarea>
+  <div
+    *ngIf="!ventas[0]"
+    class="p-4 mt-4 text-sm text-gray-800 rounded-lg bg-gray-100"
+    role="alert"
+  >
+    <span class="font-medium">Información:</span>
+    No hay ventas registradas.
   </div>
 
-  <div *ngIf="descuento > 0" class="mb-3">
-    <label for="descuento" class="block mb-2 text-sm font-medium text-gray-900">
-      Descuento aplicado
-    </label>
-    <input
-      id="descuento"
-      type="text"
-      [value]="'$' + descuento.toFixed(2)"
-      readonly
-      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
-    >
-  </div>
+  <a
+    routerLink="/escuela/ventas"
+    class="inline-block mt-5 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5"
+  >
+    Ver todas las ventas
+  </a>
+
 </div>

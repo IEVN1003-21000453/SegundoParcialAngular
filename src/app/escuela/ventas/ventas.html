@@ -1,0 +1,182 @@
+
+<div class="max-w-6xl mx-auto p-6">
+
+  <h1 class="text-3xl font-bold text-gray-900 mb-6">
+    Registro de ventas
+  </h1>
+
+  <div
+    *ngIf="indiceEdicion !== -1"
+    class="p-6 bg-white border border-blue-300 rounded-2xl shadow-md mb-6"
+  >
+    <h2 class="text-xl font-bold text-gray-900 mb-5">
+      Editar venta
+    </h2>
+
+    <form [formGroup]="formulario" (ngSubmit)="agregarVenta()">
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm text-left text-gray-700">
+
+          <thead class="text-xs uppercase bg-gray-100">
+            <tr>
+              <th class="px-4 py-3">Comprador</th>
+              <th class="px-4 py-3">Personas</th>
+              <th class="px-4 py-3">Boletos</th>
+              <th class="px-4 py-3">Tarjeta Cinépolis</th>
+              <th class="px-4 py-3">Descuento</th>
+              <th class="px-4 py-3">Total</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr class="border-b">
+
+              <td class="px-3 py-3">
+                <input
+                  type="text"
+                  formControlName="nombre"
+                  class="border border-gray-300 rounded-full p-2 w-full"
+                  required
+                >
+              </td>
+
+              <td class="px-3 py-3">
+                <input
+                  type="number"
+                  formControlName="cantidadPersonas"
+                  min="1"
+                  class="border border-gray-300 rounded-full p-2 w-20"
+                  (input)="calcularVenta()"
+                  required
+                >
+              </td>
+
+              <td class="px-3 py-3">
+                <input
+                  type="number"
+                  formControlName="boletos"
+                  min="1"
+                  class="border border-gray-300 rounded-full p-2 w-20"
+                  (input)="calcularVenta()"
+                  required
+                >
+              </td>
+
+              <td class="px-3 py-3">
+                <select
+                  formControlName="tarjeta"
+                  class="border border-gray-300 rounded-full p-2"
+                  (change)="calcularVenta()"
+                  required
+                >
+                  <option value="">Seleccionar</option>
+                  <option value="si">Sí</option>
+                  <option value="no">No</option>
+                </select>
+              </td>
+
+              <td class="px-3 py-3">
+                <input
+                  type="number"
+                  formControlName="descuento"
+                  class="border border-gray-300 rounded-full p-2 w-24 bg-gray-100"
+                  readonly
+                >
+              </td>
+
+              <td class="px-3 py-3">
+                <input
+                  type="number"
+                  formControlName="total"
+                  class="border border-gray-300 rounded-full p-2 w-24 bg-gray-100"
+                  readonly
+                >
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="border-t border-gray-300 mt-3 pt-5">
+        <button
+          type="submit"
+          class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-xl text-sm px-5 py-3"
+        >
+          Registrar
+        </button>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="bg-white rounded-lg shadow overflow-x-auto">
+
+    <table class="w-full text-sm text-left text-gray-700">
+
+      <thead class="text-xs uppercase bg-gray-100">
+        <tr>
+          <th class="px-6 py-3">Comprador</th>
+          <th class="px-6 py-3">Personas</th>
+          <th class="px-6 py-3">Boletos</th>
+          <th class="px-6 py-3">Tarjeta Cinépolis</th>
+          <th class="px-6 py-3">Descuento</th>
+          <th class="px-6 py-3">Total</th>
+          <th class="px-6 py-3">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let venta of ventas; let i = index" class="border-b">
+          <td class="px-6 py-4">{{ venta.nombre }}</td>
+          <td class="px-6 py-4">{{ venta.cantidadPersonas }}</td>
+          <td class="px-6 py-4">{{ venta.boletos }}</td>
+          <td class="px-6 py-4">
+            {{ venta.tarjeta === 'si' ? 'Sí' : 'No' }}
+          </td>
+          <td class="px-6 py-4">{{ venta.descuento }}</td>
+          <td class="px-6 py-4">{{ venta.total }}</td>
+
+          <td class="px-6 py-4">
+            <div class="flex gap-2">
+              <button
+                type="button"
+                (click)="editarVenta(i)"
+                class="text-white bg-green-700 hover:bg-green-800 rounded-lg px-3 py-2"
+              >
+                Editar
+              </button>
+
+              <button
+                type="button"
+                (click)="eliminarVenta(i)"
+                class="text-white bg-red-700 hover:bg-red-800 rounded-lg px-3 py-2"
+              >
+                Eliminar
+              </button>
+            </div>
+          </td>
+        </tr>
+
+        <tr *ngIf="ventas.length === 0">
+          <td colspan="7" class="text-center px-6 py-5 text-gray-500">
+            No hay ventas registradas.
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="mt-5">
+    <a
+      routerLink="/escuela/cinepolis"
+      class="text-blue-700 hover:underline"
+    >
+      Regresar
+    </a>
+  </div>
+
+</div>
