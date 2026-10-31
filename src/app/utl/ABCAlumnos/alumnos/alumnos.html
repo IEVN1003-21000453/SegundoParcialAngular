@@ -1,0 +1,87 @@
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+
+    <div class="px-6 py-4 border-b border-gray-200">
+        <h1 class="text-2xl font-bold text-gray-900">Alumnos UTL</h1>
+    </div>
+
+    <div class="p-6">
+        <div class="flex flex-wrap items-center gap-4">
+
+            <div class="w-full md:w-2/12">
+                Filtrar Por:
+            </div>
+
+            <div class="w-full md:w-4/12">
+                <input [(ngModel)]="listfilter" type="text"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                    placeholder="Ingresa el nombre del alumno">
+            </div>
+
+        </div>
+
+        <div class="flex flex-wrap mt-4">
+            <div class="w-full md:w-6/12">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    Filtro: {{listfilter}}
+                </h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative overflow-x-auto">
+
+        <table class="w-full text-sm text-left text-gray-600">
+
+            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                <tr>
+                    <th class="px-6 py-3">Matricula</th>
+                    <th class="px-6 py-3">Nombre</th>
+                    <th class="px-6 py-3">Apaterno</th>
+                    <th class="px-6 py-3">Amaterno</th>
+                    <th class="px-6 py-3">Correo</th>
+                    <th class="px-6 py-3">Editar</th>
+                    <th class="px-6 py-3">Eliminar</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let alumno of dataSource | alumnoFilter:listfilter"
+                    class="bg-white border-b hover:bg-gray-50">
+
+                    <td class="px-6 py-4">{{alumno.matricula}}</td>
+
+                    <td class="px-6 py-4">{{alumno.nombre | uppercase}}</td>
+
+                    <td class="px-6 py-4">{{alumno.apaterno}}</td>
+
+                    <td class="px-6 py-4">{{alumno.amaterno}}</td>
+
+                    <td class="px-6 py-4">{{alumno.correo}}</td>
+
+                    <td class="px-6 py-4">
+                        <button class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2">
+                            Editar
+                        </button>
+                    </td>
+
+                    <td class="px-6 py-4">
+                        <button class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2">
+                            Eliminar
+                        </button>
+                    </td>
+
+                </tr>
+
+                <tr *ngIf="(dataSource | alumnoFilter:listfilter).length === 0">
+                    <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                        No se encontraron alumnos.
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</div>

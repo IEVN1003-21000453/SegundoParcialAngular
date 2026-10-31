@@ -3,6 +3,25 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
+    path: 'utl',
+    children: [
+      {
+        path: 'alumnos',
+        loadComponent: () =>
+          import('./utl/ABCAlumnos/alumnos/alumnos').then(
+            (c) => c.Alumnos
+          ),
+      },
+      {
+        path: 'maestros',
+        loadComponent: () =>
+          import('./utl/abcmaestros/maestros/maestros').then(
+            (c) => c.Maestros
+          ),
+      },
+    ],
+  },
+  {
     path: 'formulario',
     children: [
       {
@@ -47,6 +66,13 @@ export const routes: Routes = [
       },
     ],
   },
-  { path: '', redirectTo: 'escuela/cinepolis', pathMatch: 'full' },
-  { path: '**', redirectTo: 'escuela/cinepolis' },
+  {
+    path: '',
+    redirectTo: 'escuela/cinepolis',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'escuela/cinepolis'
+  },
 ];
