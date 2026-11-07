@@ -1,1 +1,109 @@
-<p>editar works!</p>
+
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+
+  <div class="px-6 py-4 border-b border-gray-200">
+    <h1 class="text-2xl font-bold text-gray-900">
+      Editar Maestro
+    </h1>
+  </div>
+
+  <form [formGroup]="formulario" (ngSubmit)="onSubmit()" class="p-6">
+
+    <div class="grid gap-6 mb-6 md:grid-cols-2">
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          ID Maestro
+        </label>
+
+        <input
+          formControlName="idmaestro"
+          type="text"
+          readonly
+          class="bg-gray-100 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-2.5">
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Nombre
+        </label>
+
+        <input
+          formControlName="nombre"
+          type="text"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+
+        <p *ngIf="formulario.get('nombre')?.touched && formulario.get('nombre')?.invalid"
+          class="text-red-600 text-sm mt-1">
+          El nombre es obligatorio.
+        </p>
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Apellido Paterno
+        </label>
+
+        <input
+          formControlName="apaterno"
+          type="text"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+
+        <p *ngIf="formulario.get('apaterno')?.touched && formulario.get('apaterno')?.invalid"
+          class="text-red-600 text-sm mt-1">
+          El apellido paterno es obligatorio.
+        </p>
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Apellido Materno
+        </label>
+
+        <input
+          formControlName="amaterno"
+          type="text"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+
+        <p *ngIf="formulario.get('amaterno')?.touched && formulario.get('amaterno')?.invalid"
+          class="text-red-600 text-sm mt-1">
+          El apellido materno es obligatorio.
+        </p>
+      </div>
+
+      <div>
+        <label class="block mb-2 text-sm font-medium text-gray-900">
+          Correo Electrónico
+        </label>
+
+        <input
+          formControlName="correo"
+          type="email"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5">
+
+        <p *ngIf="formulario.get('correo')?.touched && formulario.get('correo')?.invalid"
+          class="text-red-600 text-sm mt-1">
+          Ingresa un correo válido.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="flex flex-wrap gap-3">
+
+      <button
+        type="submit"
+        class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5">
+        Guardar Cambios
+      </button>
+
+      <a
+        routerLink="/utl/listamaestros"
+        class="text-gray-900 bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5">
+        Regresar
+      </a>
+
+    </div>
+
+  </form>
+</div>

@@ -1,13 +1,15 @@
+
 import { MaestrosUTL } from '../maestrosUTL';
 import { MaestroFilterPipe } from '../maestros-filter.pipe';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ProyectoapiService } from '../maestrosapi.service';
 
 @Component({
   standalone: true,
-  imports: [FormsModule, MaestroFilterPipe, CommonModule],
+  imports: [FormsModule, MaestroFilterPipe, CommonModule, RouterLink],
   selector: 'app-maestros',
   templateUrl: './maestros.html',
 })

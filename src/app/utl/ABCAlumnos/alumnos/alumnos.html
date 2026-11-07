@@ -1,87 +1,89 @@
-<div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+<div class="block p-6 bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700">
+  <div class="border-b border-gray-200 dark:border-gray-700 pb-4 mb-6">
+    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Alumnos UTL</h1>
+  </div>
 
-    <div class="px-6 py-4 border-b border-gray-200">
-        <h1 class="text-2xl font-bold text-gray-900">Alumnos UTL</h1>
+  <div class="space-y-4">
+    <div class="flex justify-start">
+      <button
+        type="button"
+        routerLink="/utl/agregar"
+        class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-4 py-2.5 inline-flex items-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+      >
+        <svg class="w-4 h-4 me-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+        Agregar Alumno
+      </button>
     </div>
 
-    <div class="p-6">
-        <div class="flex flex-wrap items-center gap-4">
-
-            <div class="w-full md:w-2/12">
-                Filtrar Por:
-            </div>
-
-            <div class="w-full md:w-4/12">
-                <input [(ngModel)]="listfilter" type="text"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                    placeholder="Ingresa el nombre del alumno">
-            </div>
-
-        </div>
-
-        <div class="flex flex-wrap mt-4">
-            <div class="w-full md:w-6/12">
-                <h3 class="text-lg font-semibold text-gray-900">
-                    Filtro: {{listfilter}}
-                </h3>
-            </div>
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+      <div class="md:col-span-2 text-sm font-medium text-gray-900 dark:text-white">
+        Filtrar por:
+      </div>
+      <div class="md:col-span-4">
+        <input
+          name="listfilter"
+          [(ngModel)]="listfilter"
+          type="text"
+          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          placeholder="Ingresa nombre del alumno"
+        >
+      </div>
     </div>
 
-    <div class="relative overflow-x-auto">
-
-        <table class="w-full text-sm text-left text-gray-600">
-
-            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
-                <tr>
-                    <th class="px-6 py-3">Matricula</th>
-                    <th class="px-6 py-3">Nombre</th>
-                    <th class="px-6 py-3">Apaterno</th>
-                    <th class="px-6 py-3">Amaterno</th>
-                    <th class="px-6 py-3">Correo</th>
-                    <th class="px-6 py-3">Editar</th>
-                    <th class="px-6 py-3">Eliminar</th>
-                </tr>
-            </thead>
-
-            <tbody>
-
-                <tr *ngFor="let alumno of dataSource | alumnoFilter:listfilter"
-                    class="bg-white border-b hover:bg-gray-50">
-
-                    <td class="px-6 py-4">{{alumno.matricula}}</td>
-
-                    <td class="px-6 py-4">{{alumno.nombre | uppercase}}</td>
-
-                    <td class="px-6 py-4">{{alumno.apaterno}}</td>
-
-                    <td class="px-6 py-4">{{alumno.amaterno}}</td>
-
-                    <td class="px-6 py-4">{{alumno.correo}}</td>
-
-                    <td class="px-6 py-4">
-                        <button class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-4 py-2">
-                            Editar
-                        </button>
-                    </td>
-
-                    <td class="px-6 py-4">
-                        <button class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-4 py-2">
-                            Eliminar
-                        </button>
-                    </td>
-
-                </tr>
-
-                <tr *ngIf="(dataSource | alumnoFilter:listfilter).length === 0">
-                    <td colspan="7" class="px-6 py-4 text-center text-gray-500">
-                        No se encontraron alumnos.
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
-
+    <div class="grid grid-cols-1 md:grid-cols-12">
+      <div class="md:col-span-6">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+          Filtro: {{listfilter}}
+        </h3>
+      </div>
     </div>
 
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" *ngIf="listfilter && listfilter.trim() !== '' && (dataSource | alumnoFilter:listfilter).length > 0">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+          <tr>
+            <th scope="col" class="px-6 py-3">Matricula</th>
+            <th scope="col" class="px-6 py-3">Nombre</th>
+            <th scope="col" class="px-6 py-3">Apaterno</th>
+            <th scope="col" class="px-6 py-3">Amaterno</th>
+            <th scope="col" class="px-6 py-3">Correo</th>
+            <th scope="col" class="px-6 py-3">Editar</th>
+            <th scope="col" class="px-6 py-3">Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let alumno of dataSource | alumnoFilter:listfilter"
+            class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 odd:bg-white even:bg-gray-50 dark:odd:bg-gray-800 dark:even:bg-gray-700"
+          >
+            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+              {{alumno.matricula}}
+            </td>
+            <td class="px-6 py-4">{{alumno.nombre | uppercase}}</td>
+            <td class="px-6 py-4">{{alumno.apaterno}}</td>
+            <td class="px-6 py-4">{{alumno.amaterno}}</td>
+            <td class="px-6 py-4">{{alumno.correo}}</td>
+            <td class="px-6 py-4">
+              <button [routerLink]="['/utl/editar', alumno.matricula]" type="button" class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-3.5 h-3.5 me-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="m13.835 7.578-.005.007-7.13 7.13a1 1 0 0 1-.44.251l-3.256.813a1 1 0 0 1-1.217-1.217l.813-3.256a1 1 0 0 1 .251-.44l7.13-7.13.007-.005A3.5 3.5 0 0 1 13.835 7.578ZM12.414 2 15 4.586l1.293-1.293a1 1 0 0 0 0-1.414l-1.172-1.172a1 1 0 0 0-1.414 0L12.414 2Z"/>
+                </svg>
+                Editar
+              </button>
+            </td>
+            <td class="px-6 py-4">
+              <button [routerLink]="['/utl/eliminar', alumno.matricula]" type="button" class="px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                <svg class="w-3.5 h-3.5 me-2 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h16M7 8v8m4-8v8M7 1h4a1 1 0 0 1 1 1v3H6V2a1 1 0 0 1 1-1ZM3 5h12l-1 12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2L3 5Z"/>
+                </svg>
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

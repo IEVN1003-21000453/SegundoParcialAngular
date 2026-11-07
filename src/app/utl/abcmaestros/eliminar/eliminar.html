@@ -1,1 +1,104 @@
-<p>eliminar works!</p>
+
+<div class="bg-white border border-gray-200 rounded-lg shadow-sm">
+
+  <div class="px-6 py-4 border-b border-gray-200">
+    <h1 class="text-2xl font-bold text-gray-900">
+      Eliminar Maestro
+    </h1>
+  </div>
+
+  <div class="p-6">
+
+    <div class="mb-6 p-4 text-sm text-red-800 rounded-lg bg-red-50">
+      <span class="font-medium">Atención:</span>
+      ¿Estás seguro de que deseas eliminar este maestro?
+      Esta acción no se puede deshacer.
+    </div>
+
+    <form [formGroup]="formulario">
+
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-900">
+            ID Maestro
+          </label>
+
+          <input
+            formControlName="idmaestro"
+            type="text"
+            readonly
+            class="bg-gray-100 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-2.5">
+        </div>
+
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-900">
+            Nombre
+          </label>
+
+          <input
+            formControlName="nombre"
+            type="text"
+            readonly
+            class="bg-gray-100 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-2.5">
+        </div>
+
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-900">
+            Apellido Paterno
+          </label>
+
+          <input
+            formControlName="apaterno"
+            type="text"
+            readonly
+            class="bg-gray-100 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-2.5">
+        </div>
+
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-900">
+            Apellido Materno
+          </label>
+
+          <input
+            formControlName="amaterno"
+            type="text"
+            readonly
+            class="bg-gray-100 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-2.5">
+        </div>
+
+        <div>
+          <label class="block mb-2 text-sm font-medium text-gray-900">
+            Correo Electrónico
+          </label>
+
+          <input
+            formControlName="correo"
+            type="email"
+            readonly
+            class="bg-gray-100 border border-gray-300 text-gray-600 text-sm rounded-lg block w-full p-2.5">
+        </div>
+
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+
+        <button
+          type="button"
+          (click)="eliminarMaestro()"
+          class="text-white bg-red-700 hover:bg-red-800 font-medium rounded-lg text-sm px-5 py-2.5">
+          Eliminar Maestro
+        </button>
+
+        <a
+          routerLink="/utl/listamaestros"
+          class="text-gray-900 bg-gray-200 hover:bg-gray-300 font-medium rounded-lg text-sm px-5 py-2.5">
+          Cancelar
+        </a>
+
+      </div>
+
+    </form>
+
+  </div>
+</div>
